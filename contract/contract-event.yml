@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  description: Cette API permet de fournir des détails sur des événements à venir.
+  title: API gestion des evenements et sélection des siéges
+  version: 1.0.0
+tags:
+  - name: liste des évènements
+  - name: sélection des meilleurs sièges pour un évènement
+
+paths:
+  /events/available-events:
+    get:
+      summary: Rechercher tous les spectacles disponibles
+      description: Permet de rechercher tous les spectacles disponibles, triés par date d'événement
+      operationId: getAvailableEvents
+      tags:
+        - Liste des évènements
+      parameters:
+        - name: sortBy
+          in: query
+          description: Critère de tri des événements. Possible valeurs disponibles (ordre alphabétique et/ou date de l'événement).
+          required: false
+          schema:
+            type: string
+            enum: [ alphabetical, date ]
+            default: alphabetical,date
+        - name: page
+          in: query
+          description: numéro de page
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Nombre d'élements par page
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Liste des spectacles disponibles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailableEvents"
+        '400':
+          description: Requête invalide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemRest'
+        '500':
+          description: Erreur interne du serveur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemRest'
+
+  /seats/{eventId}/best-seats:
+    post:
+      summary: Sélectionner les meilleurs sièges pour un événement
+      description: Permet de sélectionner des meilleurs sièges pour un évènement,tant qu'ils sont disponibles.
+      operationId: selectBestSeatsAvailableByEvent
+      tags:
+        - sélection des meilleurs sièges pour un évènement
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          description: L'ID de l'événement.
+          schema:
+            type: integer
+            minimum: 0
+        - name: numberOfSeats
+          in: query
+          required: true
+          description: Le nombre de sièges à sélection pour l'événement.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: Sélection des meilleurs sièges réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BestSeats'
+        '400':
+          description: Requête invalide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemRest'
+        '404':
+          description: Événement non trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemRest'
+        '500':
+          description: Erreur interne du serveur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemRest'
+components:
+  schemas:
+    AvailableEvents:
+      title: AvailableEvents
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+        totalElements:
+          type: integer
+          description: Total elements
+        totalPages:
+          type: integer
+          description: Total de page
+        page:
+          type: integer
+          description: la page courante
+    Event:
+      title: Event
+      description: Détails d'un évènement
+      type: object
+      properties:
+        eventId:
+          type: integer
+          example: 95
+        eventName:
+          type: string
+          example: Event1
+        eventDate:
+          type: string
+          format: date-time
+          example: "2025-01-01T00:00:00"
+    BestSeats:
+      title: BestSeats
+      type: object
+      properties:
+        eventId:
+          type: integer
+          example: 95
+        selectedSeats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Seat'
+    Seat:
+      title: Seat
+      description: siége pour un événement
+      type: object
+      properties:
+        seatNumber:
+          type: integer
+          example: 0
+        row:
+          type: integer
+          example: 23
+        level:
+          type: string
+          example: "y"
+        section:
+          type: string
+          example: "o"
+        status:
+          type: string
+          enum: [ OPEN, SOLD, HOLD ]
+          example: "OPEN"
+        sellRank:
+          type: integer
+          example: 0
+        hasUpsells:
+          type: boolean
+          example: false
+    ProblemRest:
+      title: ProblemRest
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorRest'
+    ErrorRest:
+      title: ErrorRest
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        field:
+          type: string
+
+
+
+
+
+
+
+

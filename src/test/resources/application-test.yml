@@ -1,0 +1,5 @@
+events:
+  file:
+    path: src/test/resources/test.csv
+    batch:
+      size: 10

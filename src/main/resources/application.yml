@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: events
+  jackson:
+    default-property-inclusion: NON_NULL
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://YOUR_AUTH_SERVER/openid-configuration
+events:
+  file:
+    path: data/data.csv
+    split: ','
+    batch:
+      size: 1000

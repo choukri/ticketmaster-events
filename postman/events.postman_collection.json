@@ -1,0 +1,308 @@
+{
+	"info": {
+		"_postman_id": "cd25111b-06b1-460a-ae26-8279947aad4e",
+		"name": "events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3034544"
+	},
+	"item": [
+		{
+			"name": "available events sorted by alphabetical and date : default total elements 20 by page",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/events/available-events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"events",
+						"available-events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "available events sorted by alphabetical and date",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/events/available-events?page=0&size=66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"events",
+						"available-events"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "66"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "available events sorted by alphabetical",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/events/available-events?sortBy=alphabetical&page=0&size=66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"events",
+						"available-events"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "alphabetical"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "66"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "available events sorted by event date",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/events/available-events?sortBy=date&page=0&size=66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"events",
+						"available-events"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "date"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "66"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "200-best seats by eventid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "numberOfSeats",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/seats/0/best-seats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"seats",
+						"0",
+						"best-seats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404-best seats by eventid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "numberOfSeats",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/seats/5884/best-seats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"seats",
+						"5884",
+						"best-seats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400-best seats by eventid : numberOfSeats invalid",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "numberOfSeats",
+							"value": "60",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/seats/0/best-seats?numberOfSeats=-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"seats",
+						"0",
+						"best-seats"
+					],
+					"query": [
+						{
+							"key": "numberOfSeats",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400-best seats by eventid : Not enough available seats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "numberOfSeats",
+							"value": "60",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ticketmaster/events/v1/seats/0/best-seats?numberOfSeats=101",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ticketmaster",
+						"events",
+						"v1",
+						"seats",
+						"0",
+						"best-seats"
+					],
+					"query": [
+						{
+							"key": "numberOfSeats",
+							"value": "101"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
